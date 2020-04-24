@@ -111,7 +111,7 @@ RUN mkdir -p /home/renderer/src \
 # Install mod_tile and renderd
 RUN mkdir -p /home/renderer/src \
  && cd /home/renderer/src \
- && git clone -b switch2osm https://github.com/SomeoneElseOSM/mod_tile.git \
+ && git clone -b zoom https://github.com/SomeoneElseOSM/mod_tile.git \
  && cd mod_tile \
  && ./autogen.sh \
  && ./configure \
@@ -136,7 +136,9 @@ RUN mkdir -p /home/renderer/src \
 # Configure renderd
 RUN sed -i 's/renderaccount/renderer/g' /usr/local/etc/renderd.conf \
  && sed -i 's/\/truetype//g' /usr/local/etc/renderd.conf \
- && sed -i 's/hot/tile/g' /usr/local/etc/renderd.conf
+ && sed -i 's/hot/tile/g' /usr/local/etc/renderd.conf \
+ && sed -i 's/openstreetmap-carto-AJT/openstreetmap-carto/g' \
+           /usr/local/etc/renderd.conf
 
 # Configure Apache
 RUN mkdir /var/lib/mod_tile \
